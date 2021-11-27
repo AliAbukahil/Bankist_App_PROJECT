@@ -83,6 +83,13 @@ displayMovements(account1.movements);
 
 // console.log(containerMovements.innerHTML);
 
+const calcDisplayBalance = function (movements) {
+  const balance = movements.reduce((acc, mov) => acc + mov, 0);
+  labelBalance.textContent = `${balance}€`;
+};
+
+calcDisplayBalance(account1.movements);
+
 const createUsernames = (accs) => {
   accs.forEach(function (acc) {
     acc.username = acc.owner
@@ -293,6 +300,9 @@ const movementsDescriptions = movements.map(
 console.log(movementsDescriptions);
  */
 
+/////////////////////////////////////////
+
+/* 
 // The Filter Method
 const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
@@ -319,3 +329,33 @@ for (const mov of movements) {
 }
 console.log(depositsFor);
 console.log(depositsForMinus);
+ */
+
+///////////////////////////////////
+
+// The reduce Method
+const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+
+//  accumulator => SNOWBALL
+// const blance = movements.reduce(function (acc, cur, i, arr) {
+//   console.log(`Iteration ${i}: ${acc}`);
+//   return acc + cur;
+// }, 0);
+// console.log(blance);
+
+// the same with an arrow function
+const blance = movements.reduce((acc, cur) => acc + cur, 0);
+console.log(blance);
+
+// again with the for Loop
+let balance2 = 0;
+for (const mov of movements) balance2 += mov;
+console.log(balance2);
+
+// Maximum value of movemwnts array with reduce method
+const max = movements.reduce((acc, mov) => {
+  if (acc > mov) return acc;
+  else return mov;
+}, movements[0]);
+
+console.log(max);
