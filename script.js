@@ -113,7 +113,7 @@ const calcDisplaySummary = function (movements) {
 };
 calcDisplaySummary(account1.movements);
 
-const createUsernames = (accs) => {
+const createUsernames = function (accs) {
   accs.forEach(function (acc) {
     acc.username = acc.owner
       .toLowerCase()
@@ -122,9 +122,23 @@ const createUsernames = (accs) => {
       .join("");
   });
 };
-
 createUsernames(accounts);
-// console.log(accounts);
+
+// Event handler
+let currentAccount;
+
+btnLogin.addEventListener("click", function (e) {
+  // Prevent form from submitting
+  e.preventDefault();
+
+  currentAccount = accounts.find(
+    (acc) => acc.username === inputLoginUsername.value
+  );
+  console.log(currentAccount);
+  if (currentAccount?.pin === Number(inputLoginPin.value)) {
+    console.log(`LOGIN`);
+  }
+});
 
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
@@ -472,3 +486,15 @@ GOOD LUCK 😀
 // const avg1 = calcAverageHumanAge2([5, 2, 4, 1, 15, 8, 3]);
 // const avg2 = calcAverageHumanAge2([16, 6, 10, 5, 6, 1, 4]);
 // console.log(avg1, avg2);
+
+/* 
+// The find method
+const firstWithdrawal = movements.find((mov) => mov < 0);
+console.log(movements);
+console.log(firstWithdrawal);
+
+console.log(accounts);
+
+// const account = accounts.find((acc) => acc.owner === "Jessica Davis");
+// console.log(account);
+ */
