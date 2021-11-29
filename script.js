@@ -27,7 +27,7 @@ const account3 = {
 };
 
 const account4 = {
-  owner: "Ali Abukahil",
+  owner: "Sarah Smith",
   movements: [430, 1000, 700, 50, 90],
   interestRate: 1,
   pin: 4444,
@@ -79,7 +79,7 @@ const displayMovements = function (movements) {
   });
 };
 
-displayMovements(account1.movements);
+// displayMovements(account1.movements);
 
 // console.log(containerMovements.innerHTML);
 
@@ -88,22 +88,22 @@ const calcDisplayBalance = function (movements) {
   labelBalance.textContent = `${balance}€`;
 };
 
-calcDisplayBalance(account1.movements);
+// calcDisplayBalance(account1.movements);
 
-const calcDisplaySummary = function (movements) {
-  const incomes = movements
+const calcDisplaySummary = function (acc) {
+  const incomes = acc.movements
     .filter((mov) => mov > 0)
     .reduce((acc, mov) => acc + mov, 0);
   labelSumIn.textContent = `${incomes}€`;
 
-  const out = movements
+  const out = acc.movements
     .filter((mov) => mov < 0)
     .reduce((acc, mov) => acc + mov, 0);
   labelSumOut.textContent = `${Math.abs(out)}€`;
 
-  const interest = movements
+  const interest = acc.movements
     .filter((mov) => mov > 0)
-    .map((deposit) => (deposit * 1.2) / 100)
+    .map((deposit) => (deposit * acc.interestRate) / 100)
     .filter((int, i, arr) => {
       // console.log(int, i, arr);
       return int >= 1;
@@ -111,7 +111,7 @@ const calcDisplaySummary = function (movements) {
     .reduce((acc, int) => acc + int, 0);
   labelSumInterest.textContent = `${interest}€`;
 };
-calcDisplaySummary(account1.movements);
+// calcDisplaySummary(account1.movements);
 
 const createUsernames = function (accs) {
   accs.forEach(function (acc) {
@@ -136,7 +136,27 @@ btnLogin.addEventListener("click", function (e) {
   );
   console.log(currentAccount);
   if (currentAccount?.pin === Number(inputLoginPin.value)) {
-    console.log(`LOGIN`);
+    // Display UI and Welcom Message
+    labelWelcome.textContent = `Welcome back, ${
+      currentAccount.owner.split(" ")[0]
+    }`;
+    // Displaying User Interface
+    containerApp.style.opacity = 100;
+
+    // Clear the Input fields
+    inputLoginUsername.value = inputLoginPin.value = "";
+
+    // removing the cursor blinking in the Pin Field
+    inputLoginPin.blur();
+
+    // Display movements
+    displayMovements(currentAccount.movements);
+
+    // Display balance
+    calcDisplayBalance(currentAccount.movements);
+
+    // Display Summary
+    calcDisplaySummary(currentAccount);
   }
 });
 
