@@ -173,6 +173,7 @@ btnTransfer.addEventListener("click", function (e) {
   const receiverAcc = accounts.find(
     (acc) => acc.username === inputTransferTo.value
   );
+  // clearing the input fields afterward upon logging in
   inputTransferAmount.value = inputTransferTo.value = "";
   // Check if the user has enough funds
   if (
@@ -188,6 +189,27 @@ btnTransfer.addEventListener("click", function (e) {
     // Update UI
     updateUI(currentAccount);
   }
+});
+
+btnClose.addEventListener("click", function (e) {
+  // Prevent form from submitting
+  e.preventDefault();
+  if (
+    inputCloseUsername.value === currentAccount.username &&
+    Number(inputClosePin.value) === currentAccount.pin
+  ) {
+    const index = accounts.findIndex(
+      (acc) => acc.username === currentAccount.username
+    );
+    console.log(index);
+    // deleting the current account using splice Method
+    accounts.splice(index, 1);
+
+    // Hide UI
+    containerApp.style.opacity = 0;
+  }
+  // clearing the input fields afterward upon deleting the account
+  inputCloseUsername.value = inputClosePin.value = "";
 });
 
 /////////////////////////////////////////////////
