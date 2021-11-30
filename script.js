@@ -590,6 +590,7 @@ console.log(accounts);
  */
 
 /////////////////////////////////////////
+/*  
 // The some and every method
 console.log(movements);
 
@@ -613,3 +614,39 @@ const deposit = (mov) => mov > 0;
 console.log(movements.some(deposit));
 console.log(movements.every(deposit));
 console.log(movements.filter(deposit));
+*/
+/* 
+//////////////////////////////////////////////
+// the flat and flatMap Methods
+const arr = [[1, 2, 3], [4, 5, 6], 7, 8];
+// the flat Method only goes one level deep when flatting an array
+console.log(arr.flat()); // (8) [1, 2, 3, 4, 5, 6, 7, 8]
+
+const arrDeep = [[[1, 2], 3], [4, [5, 6]], 7, 8];
+console.log(arrDeep.flat(2)); // (8) [1, 2, 3, 4, 5, 6, 7, 8]
+
+// const accountMovements = accounts.map((acc) => acc.movements);
+// console.log(accountMovements);
+
+// const allMovements = accountMovements.flat();
+// console.log(allMovements);
+
+// const overalBalance = allMovements.reduce((acc, mov) => acc + mov, 0);
+
+// console.log(overalBalance);
+
+// A much better way with chaining all methods together
+// flat
+const overalBalanceChain = accounts
+  .map((acc) => acc.movements)
+  .flat()
+  .reduce((acc, mov) => acc + mov, 0);
+console.log(overalBalanceChain);
+
+// flatMap
+// only goes one level deep
+const overalBalanceChain2 = accounts
+  .flatMap((acc) => acc.movements) // 2 in 1 flatMap method
+  .reduce((acc, mov) => acc + mov, 0);
+console.log(overalBalanceChain);
+ */
