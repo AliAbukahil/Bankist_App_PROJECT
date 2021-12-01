@@ -61,9 +61,12 @@ const inputLoanAmount = document.querySelector(".form__input--loan-amount");
 const inputCloseUsername = document.querySelector(".form__input--user");
 const inputClosePin = document.querySelector(".form__input--pin");
 
-const displayMovements = function (movements) {
+const displayMovements = function (movements, sort = false) {
   containerMovements.innerHTML = "";
-  movements.forEach(function (mov, i) {
+
+  const movs = sort ? movements.slice().sort((a, b) => a - b) : movements;
+
+  movs.forEach(function (mov, i) {
     const type = mov > 0 ? "deposit" : "withdrawal";
 
     const html = `
@@ -228,6 +231,14 @@ btnClose.addEventListener("click", function (e) {
   }
   // clearing the input fields afterward upon deleting the account
   inputCloseUsername.value = inputClosePin.value = "";
+});
+
+let sorted = false;
+btnSort.addEventListener("click", function (e) {
+  e.preventDefault();
+  // !sorted => the opposite of sorted
+  displayMovements(currentAccount.movements, !sorted);
+  sorted = !sorted; // => flipping the variable back to its original state, each time that we click ↓ SORT, we change sorted from true to false and from true to false.
 });
 
 /////////////////////////////////////////////////
@@ -650,3 +661,34 @@ const overalBalanceChain2 = accounts
   .reduce((acc, mov) => acc + mov, 0);
 console.log(overalBalanceChain);
  */
+
+// with strings, sort Method mutates the original array
+const owners = ["Jonas", "Zach", "Adam", "Martha"];
+console.log(owners.sort());
+console.log(owners);
+
+// with Numbers
+console.log(movements);
+
+// return < 0, A, B (Keep order)
+// return > 0, B, A (switch order)
+
+// Ascending order
+// movements.sort((a, b) => {
+//   if (a > b) return 1;
+//   if (b > a) return -1;
+// });
+
+// Ascending order better Ver.
+movements.sort((a, b) => a - b);
+console.log(movements);
+
+// Descending order
+// movements.sort((a, b) => {
+//   if (a > b) return -1;
+//   if (b > a) return 1;
+// });
+
+// Descending order better Ver
+movements.sort((a, b) => b - a);
+console.log(movements);
